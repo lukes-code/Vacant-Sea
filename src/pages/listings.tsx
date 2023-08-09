@@ -2,7 +2,6 @@ import JobCard from "@/components/jobCard";
 import { useJobsContext } from "@/context/jobsContext";
 
 const Listings = () => {
-
   const { likedJobs, dislikedJobs } = useJobsContext();
 
   return (

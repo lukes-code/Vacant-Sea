@@ -1,8 +1,8 @@
-import { createContext, useContext, useEffect, useState } from 'react';
-import { useQuery, gql } from '@apollo/client';
+import { createContext, useContext, useEffect, useState } from "react";
+import { useQuery, gql } from "@apollo/client";
 
 const query = gql`
-  query {    
+  query {
     jobCollection {
       items {
         jobTitle
@@ -14,7 +14,7 @@ const query = gql`
 
 export type Job = {
   jobTitle: string;
-}
+};
 
 type ListingsContextType = {
   jobs: Job[];
@@ -22,32 +22,43 @@ type ListingsContextType = {
   isLoading: boolean;
 };
 
-const ListingsContext = createContext<ListingsContextType | undefined>(undefined);
+const ListingsContext = createContext<ListingsContextType | undefined>(
+  undefined
+);
 
 export function useContentfulContext() {
   const context = useContext(ListingsContext);
   if (!context) {
-    throw new Error('useListingsContext must be used within a ListingsProvider');
+    throw new Error(
+      "useListingsContext must be used within a ListingsProvider"
+    );
   }
   return context;
 }
 
-export function ListingsProvider({ children }: { children: React.ReactNode }) {
+export function ContentfulProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const { data, loading } = useQuery(query);
 
   const [jobs, setJobs] = useState<Job[]>([]);
 
   useEffect(() => {
-    if (data && data.jobCollection && data.jobCollection.items) {
+    if (data && data.jobCollection && data.jobCollection.items)
       setJobs(data.jobCollection.items);
-    }
   }, [data]);
-  
+
   const value = {
     jobs,
     setJobs,
     isLoading: loading,
   };
 
-  return <ListingsContext.Provider value={value}>{children}</ListingsContext.Provider>;
+  return (
+    <ListingsContext.Provider value={value}>
+      {children}
+    </ListingsContext.Provider>
+  );
 }

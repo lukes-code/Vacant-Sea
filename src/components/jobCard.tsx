@@ -4,7 +4,8 @@ import React from "react";
 
 const JobCard: React.FC = () => {
   const { jobs, setJobs, isLoading } = useContentfulContext();
-  const { addLikedJob, addDislikedJob, likedJobs, dislikedJobs } = useJobsContext();
+  const { addLikedJob, addDislikedJob, likedJobs, dislikedJobs } =
+    useJobsContext();
 
   //Loading set by the gql handler
   if (isLoading) {
@@ -14,18 +15,15 @@ const JobCard: React.FC = () => {
   //Handle when the job is liked / disliked
   const handleLike = (isLiked: boolean) => {
     if (jobs.length > 0) {
-      isLiked ?
-        addLikedJob(jobs[0]) :
-        addDislikedJob(jobs[0]);
-        
+      isLiked ? addLikedJob(jobs[0]) : addDislikedJob(jobs[0]);
+
       setJobs(jobs.slice(1));
     }
   };
 
   //Return if no jobs are found to begin with
-  if (!jobs && !likedJobs && !dislikedJobs) {
+  if (!jobs && !likedJobs && !dislikedJobs)
     return <p>No jobs...</p>;
-  }
 
   //Returns jobs if set
   return jobs.length > 0 ? (
@@ -35,7 +33,10 @@ const JobCard: React.FC = () => {
         <button onClick={() => handleLike(true)} className={buttonStyle(true)}>
           Like
         </button>
-        <button onClick={() => handleLike(false)} className={buttonStyle(false)}>
+        <button
+          onClick={() => handleLike(false)}
+          className={buttonStyle(false)}
+        >
           Dislike
         </button>
       </div>
@@ -49,7 +50,7 @@ const JobCard: React.FC = () => {
 //Sets default button style as well as dynamic colours for liked/disliked
 const buttonStyle = (isLiked: boolean) => {
   return `${isLiked ? "bg-blue-500" : "bg-red-500"} text-white p-2 rounded m-2`;
-}
+};
 
 const wrapperStyle = "bg-white p-4 rounded text-black block";
 
