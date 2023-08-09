@@ -1,7 +1,7 @@
-import React, { createContext, useContext, useState } from 'react';
-import { Job } from './contentfulContext';
+import React, { createContext, useContext, useState } from "react";
+import { Job } from "./contentful";
 
-interface JobsContextType {
+type JobsContextType = {
   likedJobs: Job[];
   dislikedJobs: Job[];
   addLikedJob: (job: Job) => void;
@@ -13,18 +13,18 @@ const JobsContext = createContext<JobsContextType | undefined>(undefined);
 export const useJobsContext = () => {
   const context = useContext(JobsContext);
   if (!context) {
-    throw new Error('useJobsContext must be used within a JobsProvider');
+    throw new Error("useJobsContext must be used within a JobsProvider");
   }
   return context;
 };
 
 type JobsProviderProps = {
-    children: React.ReactNode;
-  }
-  
-  export const JobsProvider: React.FC<JobsProviderProps> = ({ children }) => {
-    const [likedJobs, setLikedJobs] = useState<Job[]>([]);
-    const [dislikedJobs, setDislikedJobs] = useState<Job[]>([]);
+  children: React.ReactNode;
+};
+
+export const JobsProvider: React.FC<JobsProviderProps> = ({ children }) => {
+  const [likedJobs, setLikedJobs] = useState<Job[]>([]);
+  const [dislikedJobs, setDislikedJobs] = useState<Job[]>([]);
 
   const addLikedJob = (job: Job) => {
     setLikedJobs([...likedJobs, job]);

@@ -1,5 +1,5 @@
 import JobCard from "@/components/jobCard";
-import { useJobsContext } from "@/context/jobsContext";
+import { useJobsContext } from "@/context/jobs";
 
 const Listings = () => {
   const { likedJobs, dislikedJobs } = useJobsContext();
@@ -13,6 +13,7 @@ const Listings = () => {
   );
 };
 
-const mainStyle = "flex flex-col items-center justify-center min-h-screen p-4";
+const mainStyle =
+  "flex flex-col items-center justify-center min-h-screen p-4 dark:text-white text-black";
 
 export default Listings;
