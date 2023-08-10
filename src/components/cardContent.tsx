@@ -24,7 +24,6 @@ const CardContent = (props: Props) => {
     }
   };
 
-  console.log(jobs[0]?.technologies);
   const pills = jobs[0]?.technologies.map((tech) => (
     <Pill key={tech}>{tech}</Pill>
   ));
