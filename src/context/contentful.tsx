@@ -5,7 +5,19 @@ const query = gql`
   query {
     jobCollection {
       items {
-        jobTitle
+        title
+        technologies
+        about
+        location
+        salary
+        companyLogo {
+          url
+        }
+        backgroundImage {
+          url
+        }
+        companySize
+        hookline
       }
       total
     }
@@ -13,7 +25,19 @@ const query = gql`
 `;
 
 export type Job = {
-  jobTitle: string;
+  title: string;
+  technologies: string[];
+  about: string;
+  location: string;
+  salary?: string;
+  companyLogo: {
+    url: string;
+  };
+  backgroundImage: {
+    url: string;
+  };
+  companySize: string;
+  hookline: string;
 };
 
 type ListingsContextType = {
