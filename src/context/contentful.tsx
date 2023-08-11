@@ -20,6 +20,7 @@ const query = gql`
         hookline
         companyName
       }
+      total
     }
   }
 `;
@@ -45,6 +46,7 @@ export type Job = {
 type ListingsContextType = {
   jobs: Job[];
   setJobs: React.Dispatch<React.SetStateAction<Job[]>>;
+  total: number;
   isLoading: boolean;
 };
 
@@ -78,6 +80,7 @@ export function ContentfulProvider({
   const value = {
     jobs,
     setJobs,
+    total: data?.jobCollection?.total,
     isLoading: loading,
   };
 
