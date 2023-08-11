@@ -28,7 +28,7 @@ const CardContent = (props: Props) => {
     <Pill key={tech}>{tech}</Pill>
   ));
 
-  return !goBack ? (
+  const firstPage = (
     <>
       <h2 className={titleStyle}>{jobs[0]?.title}</h2>
       <div className={locationSizeStyle}>
@@ -49,16 +49,22 @@ const CardContent = (props: Props) => {
       </div>
       <ActionButtons handleLike={handleLike} />
     </>
-  ) : (
-    <div className={secondPageStyle}>
-      <div className={pillStyle}>{pills}</div>
-      <div className={secondPageDivStyle}>
-        <h3 className={aboutHeadingStyle}>About Us</h3>
-        <p>{jobs[0]?.about}</p>
-        <p>Salary {jobs[0]?.salary}</p>
-      </div>
-    </div>
   );
+
+  const secondPage = (
+    <>
+      <div className={secondPageStyle}>
+        <div className={pillStyle}>{pills}</div>
+        <div className={secondPageDivStyle}>
+          <h3 className={aboutHeadingStyle}>{jobs[0]?.companyName}</h3>
+          <p>{jobs[0]?.about}</p>
+          <p>Salary {jobs[0]?.salary}</p>
+        </div>
+      </div>
+    </>
+  );
+
+  return !goBack ? firstPage : secondPage;
 };
 
 const secondPageDivStyle = "flex flex-col space-y-2";
@@ -66,12 +72,12 @@ const secondPageDivStyle = "flex flex-col space-y-2";
 const pillStyle = "flex space-x-2";
 
 const titleStyle =
-  "font-medium text-xl text-center my-1 dark:text-gray-300 text-black mt-6";
+  "font-medium text-xl text-center my-1 dark:text-gray-300 text-black mt-3";
 
 const secondPageStyle =
   "p-4 flex flex-col space-y-2 h-[300px] mt-3 overflow-y-scroll";
 
-const aboutHeadingStyle = "font-medium";
+const aboutHeadingStyle = "font-medium mt-1 underline";
 
 const sizeStyle = "dark:text-gray-300 text-gray-700 italic";
 

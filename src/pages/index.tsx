@@ -14,7 +14,7 @@ const Home = () => {
 };
 
 const mainStyle =
-  "flex flex-col items-center justify-center min-h-screen p-4 dark:text-white text-black";
+  "flex flex-col items-center justify-center min-h-[95vh] p-4 dark:text-white text-black";
 
 const buttonStyle = "bg-blue-500 text-white p-2 rounded m-4";
 

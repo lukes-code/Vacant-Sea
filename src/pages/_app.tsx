@@ -8,7 +8,6 @@ import { ThemeProvider } from "@/context/theme";
 import Nav from "@/components/nav";
 
 export default function App({ Component, pageProps }: AppProps) {
-
   return (
     <ThemeProvider>
       <ApolloProvider client={client}>

@@ -9,6 +9,7 @@ const Nav: React.FC = () => {
   );
 };
 
-const wrapperStyle = "flex p-4 justify-between dark:text-white text-black";
+const wrapperStyle =
+  "flex p-4 justify-between dark:text-white text-black h-[5vh]";
 
 export default Nav;

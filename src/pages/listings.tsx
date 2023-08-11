@@ -18,6 +18,6 @@ const Listings = () => {
 const jobStatusStyle = "flex my-4 space-x-4";
 
 const mainStyle =
-  "flex flex-col items-center justify-center min-h-screen p-4 dark:text-white text-black";
+  "flex flex-col items-center justify-center min-h-[95vh] p-4 dark:text-white text-black";
 
 export default Listings;

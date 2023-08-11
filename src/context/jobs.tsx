@@ -6,15 +6,14 @@ type JobsContextType = {
   dislikedJobs: Job[];
   addLikedJob: (job: Job) => void;
   addDislikedJob: (job: Job) => void;
-}
+};
 
 const JobsContext = createContext<JobsContextType | undefined>(undefined);
 
 export const useJobsContext = () => {
   const context = useContext(JobsContext);
-  if (!context) {
+  if (!context)
     throw new Error("useJobsContext must be used within a JobsProvider");
-  }
   return context;
 };
 

@@ -9,6 +9,9 @@ module.exports = {
   ],
   darkMode: 'class',
   theme: {
+    screens: {
+      'mobile': '450px',
+    },
     extend: {
       colors: {
         ...blackA,

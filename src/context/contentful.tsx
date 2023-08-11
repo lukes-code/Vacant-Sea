@@ -18,8 +18,8 @@ const query = gql`
         }
         companySize
         hookline
+        companyName
       }
-      total
     }
   }
 `;
@@ -38,6 +38,8 @@ export type Job = {
   };
   companySize: string;
   hookline: string;
+  companyName: string;
+  total: number;
 };
 
 type ListingsContextType = {
@@ -52,11 +54,10 @@ const ListingsContext = createContext<ListingsContextType | undefined>(
 
 export function useContentfulContext() {
   const context = useContext(ListingsContext);
-  if (!context) {
+  if (!context)
     throw new Error(
       "useListingsContext must be used within a ListingsProvider"
     );
-  }
   return context;
 }
 
