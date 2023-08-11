@@ -4,6 +4,7 @@ import Image from "next/image";
 import React from "react";
 import { ArrowLeftIcon, ArrowRightIcon } from "@radix-ui/react-icons";
 import CardContent from "./cardContent";
+import Spinner from "./spinner";
 
 const JobCard: React.FC = () => {
   const { jobs, isLoading } = useContentfulContext();
@@ -11,7 +12,7 @@ const JobCard: React.FC = () => {
 
   const [goBack, setGoBack] = React.useState(false);
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <Spinner />;
 
   if (!jobs && !likedJobs && !dislikedJobs) return <p>No jobs...</p>;
 
