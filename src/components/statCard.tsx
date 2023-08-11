@@ -13,11 +13,11 @@ const StatCard = (props: Props) => {
   );
 };
 
-const primaryStyle = "text-lightBlue text-4xl p-2 text-center";
+const primaryStyle = "text-lightBlue text-4xl p-2";
 
-const secondaryStyle = "text-left px-1";
+const secondaryStyle = "px-1";
 
 const wrapperStyle =
-  "p-2 rounded bg-gray-200 dark:bg-slate-800 h-[95px] w-[105px] justify-center";
+  "p-2 rounded bg-gray-200 dark:bg-slate-800 h-[95px] w-[105px] justify-center text-center";
 
 export default StatCard;
