@@ -75,7 +75,7 @@ const titleStyle =
   "font-medium text-xl text-center my-1 dark:text-gray-300 text-black mt-3";
 
 const secondPageStyle =
-  "p-4 flex flex-col space-y-2 h-[300px] mt-3 overflow-y-scroll";
+  "p-4 flex flex-col space-y-2 desktop:h-[300px] h-[250px] mt-3 overflow-y-scroll";
 
 const aboutHeadingStyle = "font-medium mt-1 underline";
 
@@ -84,13 +84,14 @@ const sizeStyle = "dark:text-gray-300 text-gray-700 italic";
 const hooklineImageStyle = "absolute right-[-40px] top-[-30px]";
 
 const hooklineStyle =
-  "rounded-lg bg-lightBlue dark:text-gray-300 text-white py-3 px-4 my-12 flex relative";
+  "rounded-lg bg-lightBlue dark:text-gray-300 text-white py-3 px-4 desktop:my-12 my-6 flex relative";
 
 const hooklineTitleStyle = "italic text-sm font-normal";
 
 const hooklineContentStyle = "w-[75%] leading-[20px] text-sm";
 
-const locationSizeStyle = "flex justify-between w-[75%] m-auto text-sm";
+const locationSizeStyle =
+  "flex justify-between desktop:w-[75%] w-[85%] m-auto text-sm";
 
 const locationStyle = "flex items-center text-softYellow italic";
 

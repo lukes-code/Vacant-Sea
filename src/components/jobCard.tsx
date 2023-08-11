@@ -68,7 +68,7 @@ const companyLogoStyle =
   "absolute top-2 left-5 h-[65px] w-[65px] mx-auto my-3 bg-white p-1 rounded-[999px]";
 
 const cardStyle =
-  "relative rounded-lg mobile:w-[400px] w-[325px] h-[595px] p-4 mx-6 dark:bg-slate-800 shadow-[0_0_20px_5px_rgba(0,0,0,0.1)]";
+  "relative rounded-lg desktop:w-[400px] w-[335px] desktop:h-[595px] h-[550px] p-4 mx-6 dark:bg-slate-800 shadow-[0_0_20px_5px_rgba(0,0,0,0.1)]";
 
 const backgroundImageStyle =
   "rounded-md shadow-[0_5px_60px_-65px_rgba(0,0,0,0.3)] h-[240px]";
@@ -81,6 +81,7 @@ const getForwardButtonStyle = (goBack: boolean) => {
   return `${goBack ? "hidden" : ""} ${navStyle} right-[-15px]`;
 };
 
-const navStyle = "bg-softYellow p-2 rounded-full absolute top-[43%] text-black";
+const navStyle =
+  "bg-softYellow p-2 rounded-full absolute desktop:top-[43%] top-[47%] text-black";
 
 export default JobCard;
