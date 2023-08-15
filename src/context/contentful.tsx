@@ -19,6 +19,7 @@ const query = gql`
         companySize
         hookline
         companyName
+        id
       }
       total
     }
@@ -41,6 +42,7 @@ export type Job = {
   hookline: string;
   companyName: string;
   total: number;
+  id: number;
 };
 
 type ListingsContextType = {

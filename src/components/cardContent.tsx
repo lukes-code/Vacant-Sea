@@ -6,6 +6,7 @@ import Image from "next/image";
 import fishingSvg from "../images/fishing.svg";
 import Pill from "./pill";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
+import { useEffect } from "react";
 
 type Props = {
   goBack: boolean;
@@ -17,10 +18,33 @@ const CardContent = (props: Props) => {
   const { jobs, setJobs } = useContentfulContext();
   const { addLikedJob, addDislikedJob } = useJobsContext();
 
+  const likedJobs = JSON.parse(localStorage.getItem("likedJobs") || "[]");
+  const dislikedJobs = JSON.parse(localStorage.getItem("dislikedJobs") || "[]");
+
+  useEffect(() => {
+    // Filter out jobs with IDs present in likedJobs or dislikedJobs localstorage
+    const filteredJobs = jobs.filter(
+      (job) => !likedJobs.includes(job.id) && !dislikedJobs.includes(job.id)
+    );
+    setJobs(filteredJobs);
+  }, []);
+
   const handleLike = (e: React.ChangeEvent<HTMLButtonElement>) => {
     const isLiked = e.target.value === actionStatus.LIKE;
     if (jobs.length > 0) {
-      isLiked ? addLikedJob(jobs[0]) : addDislikedJob(jobs[0]);
+      const jobId = jobs[0].id;
+
+      if (!likedJobs.includes(jobId) && !dislikedJobs.includes(jobId)) {
+        if (isLiked) {
+          likedJobs.push(jobId);
+          localStorage.setItem("likedJobs", JSON.stringify(likedJobs));
+        } else {
+          dislikedJobs.push(jobId);
+          localStorage.setItem("dislikedJobs", JSON.stringify(dislikedJobs));
+        }
+      }
+
+      isLiked ? addLikedJob(jobs[0].id) : addDislikedJob(jobs[0].id);
       setJobs(jobs.slice(1));
     }
   };

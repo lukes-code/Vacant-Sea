@@ -1,3 +1,4 @@
+import React from "react";
 import JobCard from "@/components/jobCard";
 import StatCard from "@/components/statCard";
 import { useContentfulContext } from "@/context/contentful";

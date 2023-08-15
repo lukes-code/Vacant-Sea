@@ -8,13 +8,22 @@ import Spinner from "./spinner";
 
 const JobCard: React.FC = () => {
   const { jobs, isLoading } = useContentfulContext();
-  const { likedJobs, dislikedJobs } = useJobsContext();
+  const { likedJobs, dislikedJobs, setLikedJobs, setDislikedJobs } =
+    useJobsContext();
 
   const [goBack, setGoBack] = React.useState(false);
 
   if (isLoading) return <Spinner />;
 
   if (!jobs && !likedJobs && !dislikedJobs) return <p>No jobs...</p>;
+
+  const resetPreferences = () => {
+    localStorage.removeItem("likedJobs");
+    localStorage.removeItem("dislikedJobs");
+    setLikedJobs([]);
+    setDislikedJobs([]);
+    window.location.reload();
+  };
 
   return jobs.length > 0 ? (
     <section className="relative rounded-lg desktop:w-[400px] w-[335px] desktop:h-[595px] h-[550px] p-4 mx-6 dark:bg-slate-800 shadow-[0_0_20px_5px_rgba(0,0,0,0.1)]">
@@ -51,7 +60,18 @@ const JobCard: React.FC = () => {
       <CardContent goBack={goBack} />
     </section>
   ) : (
-    <p>No more jobs...</p>
+    <>
+      <p className="max-w-sm text-center">
+        There are no more jobs right now, please check back later or click to
+        reset your matches
+      </p>
+      <button
+        onClick={resetPreferences}
+        className="py-2 px-4 rounded bg-lightBlue text-white m-2"
+      >
+        Reset
+      </button>
+    </>
   );
 };
 

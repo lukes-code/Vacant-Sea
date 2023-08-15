@@ -1,11 +1,13 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 import { Job } from "./contentful";
 
 type JobsContextType = {
-  likedJobs: Job[];
-  dislikedJobs: Job[];
-  addLikedJob: (job: Job) => void;
-  addDislikedJob: (job: Job) => void;
+  likedJobs: number[];
+  dislikedJobs: number[];
+  addLikedJob: (id: number) => void;
+  addDislikedJob: (id: number) => void;
+  setLikedJobs: React.Dispatch<React.SetStateAction<number[]>>;
+  setDislikedJobs: React.Dispatch<React.SetStateAction<number[]>>;
 };
 
 const JobsContext = createContext<JobsContextType | undefined>(undefined);
@@ -22,22 +24,36 @@ type JobsProviderProps = {
 };
 
 export const JobsProvider: React.FC<JobsProviderProps> = ({ children }) => {
-  const [likedJobs, setLikedJobs] = useState<Job[]>([]);
-  const [dislikedJobs, setDislikedJobs] = useState<Job[]>([]);
+  const [likedJobs, setLikedJobs] = useState<number[]>([]);
+  const [dislikedJobs, setDislikedJobs] = useState<number[]>([]);
 
-  const addLikedJob = (job: Job) => {
-    setLikedJobs([...likedJobs, job]);
+  const addLikedJob = (id: number) => {
+    setLikedJobs([...likedJobs, id]);
   };
 
-  const addDislikedJob = (job: Job) => {
-    setDislikedJobs([...dislikedJobs, job]);
+  const addDislikedJob = (id: number) => {
+    setDislikedJobs([...dislikedJobs, id]);
   };
+
+  useEffect(() => {
+    // Load likedJobs and dislikedJobs from localStorage
+    const storedLikedJobs = JSON.parse(
+      localStorage.getItem("likedJobs") || "[]"
+    );
+    const storedDislikedJobs = JSON.parse(
+      localStorage.getItem("dislikedJobs") || "[]"
+    );
+    setLikedJobs(storedLikedJobs);
+    setDislikedJobs(storedDislikedJobs);
+  }, []);
 
   const value: JobsContextType = {
     likedJobs,
     dislikedJobs,
     addLikedJob,
     addDislikedJob,
+    setLikedJobs,
+    setDislikedJobs,
   };
 
   return <JobsContext.Provider value={value}>{children}</JobsContext.Provider>;
