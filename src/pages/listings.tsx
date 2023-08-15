@@ -3,27 +3,31 @@ import JobCard from "@/components/jobCard";
 import StatCard from "@/components/statCard";
 import { useContentfulContext } from "@/context/contentful";
 import { useJobsContext } from "@/context/jobs";
+import Filter from "@/components/filter";
 
 const Listings = () => {
   const { likedJobs, dislikedJobs } = useJobsContext();
-  const { total } = useContentfulContext();
+  const { total, filteredJobs } = useContentfulContext();
 
   return (
-    <main className={mainStyle}>
+    <main className="flex flex-col items-center justify-center min-h-[95vh] p-4 dark:text-white text-black">
       <JobCard />
-      <div className={jobStatusStyle}>
-        <StatCard primary={total} secondary="Jobs" />
-        <StatCard primary={likedJobs.length} secondary="Liked" />
-        <StatCard primary={dislikedJobs.length} secondary="Disliked" />
+      <div className="flex justify-between">
+        <div className="hidden desktop:flex my-4 space-x-4 absolute bottom-7 left-8 items-center">
+          <p>Filter</p>
+          <Filter />
+        </div>
+        <div className="hidden desktop:flex my-4 space-x-4 absolute bottom-0 right-5">
+          <StatCard primary={total} secondary="Total Jobs" />
+          {filteredJobs.length !== total && (
+            <StatCard primary={filteredJobs.length} secondary="Filtered Jobs" />
+          )}
+          <StatCard primary={likedJobs.length} secondary="Liked" />
+          <StatCard primary={dislikedJobs.length} secondary="Disliked" />
+        </div>
       </div>
     </main>
   );
 };
-
-const jobStatusStyle =
-  "hidden desktop:flex my-4 space-x-4 absolute bottom-0 left-5";
-
-const mainStyle =
-  "flex flex-col items-center justify-center min-h-[95vh] p-4 dark:text-white text-black";
 
 export default Listings;

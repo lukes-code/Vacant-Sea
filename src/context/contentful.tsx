@@ -48,6 +48,8 @@ export type Job = {
 type ListingsContextType = {
   jobs: Job[];
   setJobs: React.Dispatch<React.SetStateAction<Job[]>>;
+  filteredJobs: Job[];
+  setFilteredJobs: React.Dispatch<React.SetStateAction<Job[]>>;
   total: number;
   isLoading: boolean;
 };
@@ -73,6 +75,7 @@ export function ContentfulProvider({
   const { data, loading } = useQuery(query);
 
   const [jobs, setJobs] = useState<Job[]>([]);
+  const [filteredJobs, setFilteredJobs] = useState<Job[]>([]);
 
   useEffect(() => {
     if (data && data.jobCollection && data.jobCollection.items)
@@ -82,6 +85,8 @@ export function ContentfulProvider({
   const value = {
     jobs,
     setJobs,
+    filteredJobs,
+    setFilteredJobs,
     total: data?.jobCollection?.total,
     isLoading: loading,
   };

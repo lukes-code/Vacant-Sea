@@ -1,17 +1,24 @@
 import { useContentfulContext } from "@/context/contentful";
 import { useJobsContext } from "@/context/jobs";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import { ArrowLeftIcon, ArrowRightIcon } from "@radix-ui/react-icons";
 import CardContent from "./cardContent";
 import Spinner from "./spinner";
 
 const JobCard: React.FC = () => {
-  const { jobs, isLoading } = useContentfulContext();
-  const { likedJobs, dislikedJobs, setLikedJobs, setDislikedJobs } =
-    useJobsContext();
+  const { jobs, filteredJobs, isLoading } = useContentfulContext();
+  const {
+    likedJobs,
+    dislikedJobs,
+    selectedTechnology,
+    setLikedJobs,
+    setDislikedJobs,
+  } = useJobsContext();
 
-  const [goBack, setGoBack] = React.useState(false);
+  const [goBack, setGoBack] = useState(false);
+
+  const currentJobs = filteredJobs.length ? filteredJobs : jobs;
 
   if (isLoading) return <Spinner />;
 
@@ -25,17 +32,18 @@ const JobCard: React.FC = () => {
     window.location.reload();
   };
 
-  return jobs.length > 0 ? (
+  return filteredJobs.length > 0 ||
+    (jobs.length > 0 && selectedTechnology === "") ? (
     <section className="relative rounded-lg desktop:w-[400px] w-[335px] desktop:h-[595px] h-[550px] p-4 mx-6 dark:bg-slate-800 shadow-[0_0_20px_5px_rgba(0,0,0,0.1)]">
       <Image
-        src={jobs[0]?.backgroundImage.url}
+        src={currentJobs[0]?.backgroundImage.url}
         alt="company image"
         className="rounded-md shadow-[0_5px_60px_-65px_rgba(0,0,0,0.3)] h-[240px]"
         height={100}
         width={400}
       />
       <Image
-        src={jobs[0]?.companyLogo.url}
+        src={currentJobs[0]?.companyLogo.url}
         alt="company image"
         className="absolute top-2 left-5 h-[65px] w-[65px] mx-auto my-3 bg-white p-1 rounded-[999px]"
         height={150}
