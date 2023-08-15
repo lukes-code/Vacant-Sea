@@ -10,17 +10,17 @@ export enum actionStatus {
 const ActionButtons = (props: Props) => {
   const { handleLike } = props;
   return (
-    <div className={buttonWrapperStyle}>
+    <div className="flex justify-between text-4xl space-x-2">
       <button
         onClick={handleLike}
-        className={dislikeButtonStyle}
+        className={`${buttonStyle} bg-white border-2 dark:border-white border-lightBlue`}
         value={actionStatus.DISLIKE}
       >
         &#128169;
       </button>
       <button
         onClick={handleLike}
-        className={likeButtonStyle}
+        className={`${buttonStyle} bg-lightBlue`}
         value={actionStatus.LIKE}
       >
         &#128293;
@@ -30,11 +30,5 @@ const ActionButtons = (props: Props) => {
 };
 
 const buttonStyle = "mt-3 px-2 py-1 w-full rounded-lg";
-
-const likeButtonStyle = `${buttonStyle} bg-lightBlue`;
-
-const dislikeButtonStyle = `${buttonStyle} bg-white border-2 dark:border-white border-lightBlue`;
-
-const buttonWrapperStyle = "flex justify-between text-4xl space-x-2";
 
 export default ActionButtons;

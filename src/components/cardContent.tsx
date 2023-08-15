@@ -5,6 +5,7 @@ import { SewingPinIcon } from "@radix-ui/react-icons";
 import Image from "next/image";
 import fishingSvg from "../images/fishing.svg";
 import Pill from "./pill";
+import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 
 type Props = {
   goBack: boolean;
@@ -30,20 +31,24 @@ const CardContent = (props: Props) => {
 
   const firstPage = (
     <>
-      <h2 className={titleStyle}>{jobs[0]?.title}</h2>
-      <div className={locationSizeStyle}>
-        <p className={locationStyle}>
+      <h2 className="font-medium text-xl text-center my-1 dark:text-gray-300 text-black mt-3">
+        {jobs[0]?.title}
+      </h2>
+      <div className="flex justify-between desktop:w-[75%] w-[85%] m-auto text-sm">
+        <p className="flex items-center text-softYellow italic">
           <SewingPinIcon />
           {jobs[0]?.location}
         </p>
-        <p className={sizeStyle}>{jobs[0]?.companySize}</p>
+        <p className="dark:text-gray-300 text-gray-700 italic">
+          {jobs[0]?.companySize}
+        </p>
       </div>
-      <div className={hooklineStyle}>
-        <div className={hooklineContentStyle}>
-          <p className={hooklineTitleStyle}>hook</p>
+      <div className="rounded-lg bg-lightBlue dark:text-gray-300 text-white py-3 px-4 desktop:my-12 my-6 flex relative">
+        <div className="w-[75%] leading-[20px] text-sm">
+          <p className="italic text-sm font-normal">hook</p>
           <p>"{jobs[0]?.hookline}"</p>
         </div>
-        <div className={hooklineImageStyle}>
+        <div className="absolute right-[-40px] top-[-30px]">
           <Image src={fishingSvg} alt="fishing" height={180} width={180} />
         </div>
       </div>
@@ -53,11 +58,11 @@ const CardContent = (props: Props) => {
 
   const secondPage = (
     <>
-      <div className={secondPageStyle}>
-        <div className={pillStyle}>{pills}</div>
-        <div className={secondPageDivStyle}>
-          <h3 className={aboutHeadingStyle}>{jobs[0]?.companyName}</h3>
-          <p>{jobs[0]?.about}</p>
+      <div className="p-4 flex flex-col space-y-2 desktop:h-[300px] h-[250px] mt-3 overflow-y-scroll">
+        <div className="flex flex-wrap">{pills}</div>
+        <div className="flex flex-col space-y-">
+          <h3 className="font-medium mt-1 underline">{jobs[0]?.companyName}</h3>
+          <ReactMarkdown>{jobs[0]?.about}</ReactMarkdown>
           <p>Salary {jobs[0]?.salary}</p>
         </div>
       </div>
@@ -66,33 +71,5 @@ const CardContent = (props: Props) => {
 
   return !goBack ? firstPage : secondPage;
 };
-
-const secondPageDivStyle = "flex flex-col space-y-2";
-
-const pillStyle = "flex space-x-2";
-
-const titleStyle =
-  "font-medium text-xl text-center my-1 dark:text-gray-300 text-black mt-3";
-
-const secondPageStyle =
-  "p-4 flex flex-col space-y-2 desktop:h-[300px] h-[250px] mt-3 overflow-y-scroll";
-
-const aboutHeadingStyle = "font-medium mt-1 underline";
-
-const sizeStyle = "dark:text-gray-300 text-gray-700 italic";
-
-const hooklineImageStyle = "absolute right-[-40px] top-[-30px]";
-
-const hooklineStyle =
-  "rounded-lg bg-lightBlue dark:text-gray-300 text-white py-3 px-4 desktop:my-12 my-6 flex relative";
-
-const hooklineTitleStyle = "italic text-sm font-normal";
-
-const hooklineContentStyle = "w-[75%] leading-[20px] text-sm";
-
-const locationSizeStyle =
-  "flex justify-between desktop:w-[75%] w-[85%] m-auto text-sm";
-
-const locationStyle = "flex items-center text-softYellow italic";
 
 export default CardContent;
