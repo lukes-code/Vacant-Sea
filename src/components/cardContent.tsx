@@ -17,7 +17,8 @@ const CardContent = (props: Props) => {
 
   const { jobs, filteredJobs, setFilteredJobs, setJobs } =
     useContentfulContext();
-  const { addLikedJob, addDislikedJob } = useJobsContext();
+  const { addLikedJob, addDislikedJob, setShouldExitLeft, setShouldExitRight } =
+    useJobsContext();
 
   const likedJobs = JSON.parse(localStorage.getItem("likedJobs") || "[]");
   const dislikedJobs = JSON.parse(localStorage.getItem("dislikedJobs") || "[]");
@@ -35,24 +36,29 @@ const CardContent = (props: Props) => {
   const handleLike = (e: React.ChangeEvent<HTMLButtonElement>) => {
     const isLiked = e.target.value === actionStatus.LIKE;
     if (currentJobs.length > 0) {
-      const jobId = currentJobs[0].id;
+      isLiked ? setShouldExitRight(true) : setShouldExitLeft(true);
+      setTimeout(() => {
+        const jobId = currentJobs[0].id;
 
-      if (!likedJobs.includes(jobId) && !dislikedJobs.includes(jobId)) {
-        if (isLiked) {
-          likedJobs.push(jobId);
-          localStorage.setItem("likedJobs", JSON.stringify(likedJobs));
-        } else {
-          dislikedJobs.push(jobId);
-          localStorage.setItem("dislikedJobs", JSON.stringify(dislikedJobs));
+        if (!likedJobs.includes(jobId) && !dislikedJobs.includes(jobId)) {
+          if (isLiked) {
+            likedJobs.push(jobId);
+            localStorage.setItem("likedJobs", JSON.stringify(likedJobs));
+          } else {
+            dislikedJobs.push(jobId);
+            localStorage.setItem("dislikedJobs", JSON.stringify(dislikedJobs));
+          }
         }
-      }
 
-      isLiked
-        ? addLikedJob(currentJobs[0].id)
-        : addDislikedJob(currentJobs[0].id);
-      filteredJobs.length > 0
-        ? setFilteredJobs(filteredJobs.slice(1))
-        : setJobs(jobs.slice(1));
+        isLiked
+          ? addLikedJob(currentJobs[0].id)
+          : addDislikedJob(currentJobs[0].id);
+        filteredJobs.length > 0
+          ? setFilteredJobs(filteredJobs.slice(1))
+          : setJobs(jobs.slice(1));
+        setShouldExitLeft(false);
+        setShouldExitRight(false);
+      }, 500);
     }
   };
 

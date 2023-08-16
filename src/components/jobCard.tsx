@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import { ArrowLeftIcon, ArrowRightIcon } from "@radix-ui/react-icons";
 import CardContent from "./cardContent";
 import Spinner from "./spinner";
+import { motion } from "framer-motion";
 
 const JobCard: React.FC = () => {
   const { jobs, filteredJobs, isLoading } = useContentfulContext();
@@ -12,6 +13,8 @@ const JobCard: React.FC = () => {
     likedJobs,
     dislikedJobs,
     selectedTechnology,
+    shouldExitLeft,
+    shouldExitRight,
     setLikedJobs,
     setDislikedJobs,
   } = useJobsContext();
@@ -32,9 +35,44 @@ const JobCard: React.FC = () => {
     window.location.reload();
   };
 
-  return filteredJobs.length > 0 ||
-    (jobs.length > 0 && selectedTechnology === "") ? (
-    <section className="relative rounded-lg desktop:w-[400px] w-[335px] desktop:h-[595px] h-[550px] p-4 mx-6 dark:bg-slate-800 shadow-[0_0_20px_5px_rgba(0,0,0,0.1)]">
+  const variants = {
+    escapeLeft: {
+      opacity: 0,
+      x: [0, -1000, 0],
+      y: [0, -300, 500],
+      rotate: [0, -30, 0],
+      scale: [1, 0.6, 1],
+      transition: { duration: 0.5, opacity: 0.1 },
+    },
+    escapeRight: {
+      opacity: 0,
+      x: [0, 1000, 0],
+      y: [0, -300, 500],
+      rotate: [0, 30, 0],
+      scale: [1, 0.6, 1],
+      transition: { duration: 0.5, opacity: 0.1 },
+    },
+    default: {
+      opacity: 1,
+      x: 0,
+      y: 0,
+    },
+  };
+
+  return filteredJobs.length > 0 || (jobs.length > 0 && !selectedTechnology) ? (
+    <motion.section
+      initial={{ opacity: 0, y: 500 }}
+      animate={
+        shouldExitLeft
+          ? "escapeLeft"
+          : shouldExitRight
+          ? "escapeRight"
+          : "default"
+      }
+      variants={variants}
+      transition={{ ease: "easeOut", duration: 0.2 }}
+      className="relative rounded-lg desktop:w-[400px] w-[335px] desktop:h-[595px] h-[550px] p-4 mx-6 dark:bg-slate-800 shadow-[0_0_20px_5px_rgba(0,0,0,0.1)]"
+    >
       <Image
         src={currentJobs[0]?.backgroundImage.url}
         alt="company image"
@@ -66,7 +104,7 @@ const JobCard: React.FC = () => {
         <ArrowRightIcon />
       </button>
       <CardContent goBack={goBack} />
-    </section>
+    </motion.section>
   ) : (
     <>
       <p className="max-w-sm text-center">
