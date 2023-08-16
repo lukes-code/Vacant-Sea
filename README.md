@@ -13,9 +13,20 @@ Requires API key and space to run locally.
 - Radix-UI
 - Framer motion
 
-## Functionality in practice:
+## Functionality in practice (7fps gif)
+- Basic landing page
+- Dark mode toggle (local storage)
+- Job listings page
+- 2 page job card with info from Contentful GQL (using context to store jobs)
+- Initial and on like/dislike animations with framer motion
+- Stat cards (using context for data)
+- Filter by technologies (based on technologies in context from all jobs in GQL query)
+- Liked/Disliked jobs saved to local storage so that they do not reappear unless reset
 
-![ezgif com-video-to-gif](https://github.com/lukes-code/vacant-sea/assets/21207597/88fde7b6-14e8-496b-ae6c-c956ae8ca28d)
+(please note that it looks smoother in use, this is a gif for reference only)
+
+![ezgif com-video-to-gif (3)](https://github.com/lukes-code/Vacant-Sea/assets/21207597/da582253-a9b1-4445-b166-16f4033303ee)
+
 
 ## Animation (20fps gif)
 
